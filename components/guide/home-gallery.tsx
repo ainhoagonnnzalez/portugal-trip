@@ -1,8 +1,10 @@
 "use client";
 
+import { PhotoLightbox } from "@/components/guide/photo-lightbox";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const previewPhotos = [
   { src: "/images/1.jpg", alt: "Portugal" },
@@ -15,32 +17,36 @@ const previewPhotos = [
 
 export function HomeGallery() {
   const prefersReducedMotion = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <motion.section
-      id="siguiente"
-      className="gallery bg-navy pt-[100px]"
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div className="mx-auto w-full max-w-[1800px] px-12 lg:px-16">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
-          {previewPhotos.map((photo, i) => (
-            <motion.div
-              key={photo.src}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.7,
-                delay: i * 0.08,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-2xl md:aspect-[2/3]"
-            >
-              <Link href="/plan" className="absolute inset-0">
+    <>
+      <motion.section
+        id="siguiente"
+        className="gallery bg-navy pt-[100px]"
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="mx-auto w-full max-w-[1800px] px-12 lg:px-16">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
+            {previewPhotos.map((photo, i) => (
+              <motion.button
+                key={photo.src}
+                type="button"
+                onClick={() => setActiveIndex(i)}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.7,
+                  delay: i * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-2xl border-0 bg-transparent p-0 md:aspect-[2/3]"
+                aria-label={`Abrir foto ${i + 1}`}
+              >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
@@ -49,20 +55,27 @@ export function HomeGallery() {
                   sizes="(max-width: 768px) 50vw, 16vw"
                 />
                 <div className="absolute inset-0 bg-navy/20 transition-colors duration-300 group-hover:bg-navy/0" />
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              </motion.button>
+            ))}
+          </div>
 
-        <div className="flex justify-center py-14 md:py-20">
-          <Link
-            href="/plan"
-            className="text-sm font-medium uppercase tracking-[0.28em] text-white/70 transition-colors hover:text-white"
-          >
-            Plan del viaje →
-          </Link>
+          <div className="flex justify-center py-14 md:py-20">
+            <Link
+              href="/plan"
+              className="text-sm font-medium uppercase tracking-[0.28em] text-white/70 transition-colors hover:text-white"
+            >
+              Plan del viaje →
+            </Link>
+          </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.section>
+
+      <PhotoLightbox
+        photos={previewPhotos}
+        activeIndex={activeIndex}
+        onClose={() => setActiveIndex(null)}
+        onChange={setActiveIndex}
+      />
+    </>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { CursorRing } from "@/components/guide/cursor-ring";
 import { FabMaps } from "@/components/guide/fab-maps";
 import { Footer } from "@/components/guide/footer";
 import { Navbar } from "@/components/guide/navbar";
@@ -12,6 +13,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <CursorRing />
       {!isPlan && <Navbar />}
       <main className="flex-1">{children}</main>
       <Footer />
