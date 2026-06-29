@@ -57,7 +57,7 @@ export function HomeGallery() {
         <div className="flex justify-center py-14 md:py-20">
           <Link
             href="/plan"
-            className="font-display text-sm font-semibold uppercase tracking-[0.25em] text-white/70 transition-colors hover:text-white"
+            className="text-sm font-medium uppercase tracking-[0.28em] text-white/70 transition-colors hover:text-white"
           >
             Plan del viaje →
           </Link>

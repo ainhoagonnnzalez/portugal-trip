@@ -22,7 +22,7 @@ export function DayNavigation({ activeDay, onChange }: DayNavigationProps) {
               type="button"
               onClick={() => onChange(day)}
               className={cn(
-                "shrink-0 py-3.5 font-display text-xs font-medium uppercase tracking-[0.28em] transition-colors md:py-4",
+                "shrink-0 py-3.5 font-display text-xs font-extrabold uppercase tracking-[0.24em] transition-colors md:py-4",
                 active ? "text-white" : "text-white/70 hover:text-white",
               )}
             >

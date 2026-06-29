@@ -14,7 +14,7 @@ export function FabMaps() {
     return (
       <Link
         href="/plan"
-        className="fixed bottom-6 right-5 z-40 flex h-14 items-center gap-2 rounded-full bg-navy px-5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-[1.03] active:scale-[0.98] md:bottom-8 md:right-8"
+        className="fixed bottom-6 right-5 z-40 flex h-14 items-center gap-2 rounded-full bg-navy px-5 text-sm font-medium text-white transition-opacity hover:opacity-90 md:bottom-8 md:right-8"
         style={{ marginBottom: "var(--safe-bottom)" }}
       >
         Plan
@@ -27,7 +27,7 @@ export function FabMaps() {
       href={mapsUrl ?? "/mapa"}
       target={mapsUrl ? "_blank" : undefined}
       rel={mapsUrl ? "noopener noreferrer" : undefined}
-      className="fixed bottom-6 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white shadow-lg transition-transform hover:scale-[1.03] active:scale-[0.98] md:bottom-8 md:right-8"
+      className="fixed bottom-6 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white transition-opacity hover:opacity-90 md:bottom-8 md:right-8"
       style={{ marginBottom: "var(--safe-bottom)" }}
       aria-label="Abrir mapa"
     >

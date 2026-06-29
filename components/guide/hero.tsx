@@ -67,6 +67,12 @@ export function Hero() {
           <p className="text-display-place mt-3 text-white sm:mt-4 md:mt-6">
             {site.location}
           </p>
+          <p
+            className="mt-3 text-xl tracking-[0.35em] sm:mt-4 sm:text-2xl md:mt-5 md:text-[1.75rem]"
+            aria-hidden
+          >
+            🌸🏝️
+          </p>
         </motion.div>
 
         <motion.button

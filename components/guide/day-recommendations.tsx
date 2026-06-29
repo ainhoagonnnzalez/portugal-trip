@@ -17,7 +17,7 @@ export function DayRecommendations({ groups }: DayRecommendationsProps) {
           <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 md:mt-12">
             {groups.map((group) => (
               <div key={group.id}>
-                <h3 className="font-display text-[11px] font-medium uppercase tracking-[0.28em] text-white/65">
+                <h3 className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/65">
                   <span aria-hidden>{group.icon} </span>
                   {group.label}
                 </h3>

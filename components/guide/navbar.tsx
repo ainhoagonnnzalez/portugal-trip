@@ -26,7 +26,7 @@ export function Navbar() {
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         overlay
           ? "bg-transparent"
-          : "border-b border-border bg-card/95 shadow-sm backdrop-blur-xl",
+          : "border-b border-border bg-card",
       )}
     >
       <TopNavigation overlay={overlay} />

@@ -26,8 +26,8 @@
   --color-text-subtle: var(--text-subtle);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-satoshi);
+  --font-display: var(--font-display);
   --spacing-nav: var(--nav-height);
 }
 
@@ -47,7 +47,7 @@
   body {
     background: var(--background);
     color: var(--text);
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     overflow-x: hidden;
   }
 
@@ -58,78 +58,108 @@
 
 @layer components {
   .font-display {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
   }
 
+  /* Archivo Expanded — hero, ALBUFEIRA, DÍA X, activity titles */
   .text-display-hero {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(2.75rem, calc((100vw - 3rem) / 5.2), 11rem);
-    font-weight: 700;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-    max-width: 100%;
-  }
-
-  .text-display-date {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(0.875rem, 2.8vw + 0.25rem, 1.375rem);
-    font-weight: 500;
-    letter-spacing: clamp(0.12em, 2vw, 0.35em);
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-size: clamp(3rem, calc((100vw - 3rem) / 4.8), 12rem);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     max-width: 100%;
   }
 
   .text-display-place {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(1.25rem, 4vw + 0.25rem, 2.75rem);
-    font-weight: 600;
-    letter-spacing: clamp(0.1em, 1.5vw, 0.22em);
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-size: clamp(1.5rem, 5vw + 0.25rem, 3.25rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     max-width: 100%;
   }
 
   .text-day-title {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(1.75rem, 5vw, 3rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-size: clamp(2rem, 7vw, 4.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 
-  .text-stop-time {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 700;
+  .text-route-title {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-size: clamp(1.5rem, 4vw, 2.75rem);
+    font-weight: 800;
     line-height: 1;
-    letter-spacing: -0.04em;
-    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #ffffff;
   }
 
-  .text-editorial-time {
-    font-family: var(--font-inter), system-ui, sans-serif;
-    font-size: clamp(0.8125rem, 1.75vw, 0.9375rem);
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-muted);
+  .text-itinerary-title {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-size: clamp(1.375rem, 3vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #ffffff;
   }
 
   .text-editorial-title {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
     font-size: clamp(1.375rem, 3.5vw, 2.5rem);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.02;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     color: var(--navy);
   }
 
+  /* Satoshi — dates, times, nav, descriptions, secondary content */
+  .text-display-date {
+    font-family: var(--font-satoshi), system-ui, sans-serif;
+    font-size: clamp(0.8125rem, 2vw + 0.2rem, 1.125rem);
+    font-weight: 500;
+    letter-spacing: clamp(0.14em, 2vw, 0.28em);
+    text-transform: uppercase;
+    max-width: 100%;
+  }
+
+  .text-stop-time {
+    font-family: var(--font-satoshi), system-ui, sans-serif;
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .text-editorial-time {
+    font-family: var(--font-satoshi), system-ui, sans-serif;
+    font-size: clamp(0.8125rem, 1.75vw, 0.9375rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+  }
+
   .text-editorial-drive {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: clamp(0.65rem, 1.5vw, 0.75rem);
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--text-subtle);
   }
@@ -141,44 +171,44 @@
   }
 
   .text-editorial-option {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: clamp(0.9375rem, 1.75vw, 1.0625rem);
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 0;
     color: var(--text);
   }
 
   .text-editorial-venue {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    font-weight: 700;
-    line-height: 1.02;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
     color: var(--navy);
   }
 
   .text-timeline-title {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
     font-size: clamp(1.0625rem, 2.2vw, 1.375rem);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.05;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     color: var(--navy);
   }
 
   .text-timeline-time {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     font-variant-numeric: tabular-nums;
     color: var(--text-muted);
   }
 
   .text-timeline-option {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: 0.8125rem;
     font-weight: 400;
     line-height: 1.45;
@@ -186,22 +216,12 @@
   }
 
   .text-route-time {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     font-variant-numeric: tabular-nums;
     color: rgba(255, 255, 255, 0.5);
-  }
-
-  .text-route-title {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    color: #ffffff;
   }
 
   .route-row,
@@ -243,46 +263,36 @@
   }
 
   .text-itinerary-time {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     font-variant-numeric: tabular-nums;
     color: rgba(255, 255, 255, 0.55);
   }
 
-  .text-itinerary-title {
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
-    font-size: clamp(1.375rem, 2.8vw, 2.125rem);
-    font-weight: 700;
-    line-height: 1.02;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: #ffffff;
-  }
-
   .text-itinerary-desc {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.5;
     letter-spacing: 0.01em;
     color: rgba(255, 255, 255, 0.42);
   }
 
   .text-itinerary-drive {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: 0.6875rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.48);
   }
 
   .text-itinerary-link {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-satoshi), system-ui, sans-serif;
     font-size: 0.625rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #ffffff;
@@ -311,11 +321,11 @@
 
     .route-row {
       min-height: auto;
-      padding-block: 1rem;
+      padding-block: 1.25rem;
     }
 
     .text-itinerary-title {
-      font-size: clamp(1.125rem, 5.5vw, 1.375rem);
+      font-size: clamp(1.125rem, 5.5vw, 1.5rem);
       word-break: break-word;
     }
 

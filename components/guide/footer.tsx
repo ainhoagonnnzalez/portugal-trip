@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background py-8">
       <div className="mx-auto flex w-full max-w-[1600px] flex-wrap items-center justify-between gap-4 px-4 md:px-6 lg:px-8">
-        <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-navy">
+        <p className="text-xs font-medium uppercase tracking-[0.22em] text-navy">
           {site.dates}
         </p>
         <div className="flex gap-6">

@@ -17,7 +17,7 @@ export function TopNavigation({ overlay = false }: TopNavigationProps) {
       <Link
         href="/"
         className={cn(
-          "shrink-0 font-display text-[10px] font-bold uppercase tracking-[0.16em] transition-colors sm:text-xs sm:tracking-[0.2em]",
+          "shrink-0 text-[10px] font-medium uppercase tracking-[0.18em] transition-colors sm:text-xs sm:tracking-[0.22em]",
           overlay ? "text-white/90" : "text-navy",
         )}
       >
