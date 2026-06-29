@@ -16,6 +16,9 @@ interface PhotoLightboxProps {
   onChange: (index: number) => void;
 }
 
+const swipeThreshold = 56;
+const swipeVelocity = 350;
+
 export function PhotoLightbox({
   photos,
   activeIndex,
@@ -56,6 +59,20 @@ export function PhotoLightbox({
     };
   }, [isOpen, onClose, goPrev, goNext]);
 
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: { offset: { x: number }; velocity: { x: number } },
+  ) => {
+    if (info.offset.x > swipeThreshold || info.velocity.x > swipeVelocity) {
+      goPrev();
+      return;
+    }
+
+    if (info.offset.x < -swipeThreshold || info.velocity.x < -swipeVelocity) {
+      goNext();
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && photo && (
@@ -85,7 +102,7 @@ export function PhotoLightbox({
                 event.stopPropagation();
                 goPrev();
               }}
-              className="absolute left-2 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-white/20 px-3 py-2 text-white/80 transition-colors hover:border-white/40 hover:text-white sm:left-6 sm:block"
+              className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 text-lg text-white/80 transition-colors hover:border-white/40 hover:text-white sm:left-6 sm:h-12 sm:w-12"
               aria-label="Foto anterior"
             >
               ←
@@ -99,7 +116,7 @@ export function PhotoLightbox({
                 event.stopPropagation();
                 goNext();
               }}
-              className="absolute right-2 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-white/20 px-3 py-2 text-white/80 transition-colors hover:border-white/40 hover:text-white sm:right-6 sm:block"
+              className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 text-lg text-white/80 transition-colors hover:border-white/40 hover:text-white sm:right-6 sm:h-12 sm:w-12"
               aria-label="Foto siguiente"
             >
               →
@@ -111,26 +128,53 @@ export function PhotoLightbox({
             initial={
               prefersReducedMotion ? false : { opacity: 0, scale: 0.96, y: 12 }
             }
-            animate={{ opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
             exit={
               prefersReducedMotion ? undefined : { opacity: 0, scale: 0.98, y: 8 }
             }
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-[min(78vh,900px)] w-full max-w-5xl"
+            drag={prefersReducedMotion ? false : "x"}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.14}
+            onDragEnd={handleDragEnd}
+            className="relative h-[min(72vh,900px)] w-full max-w-5xl touch-none"
             onClick={(event) => event.stopPropagation()}
           >
             <Image
               src={photo.src}
               alt={photo.alt}
               fill
-              className="object-contain"
+              className="pointer-events-none object-contain select-none"
               sizes="(max-width: 768px) 100vw, 80vw"
               priority
+              draggable={false}
             />
-            <figcaption className="absolute -bottom-8 left-0 right-0 text-center text-[11px] font-medium uppercase tracking-[0.24em] text-white/50">
+            <figcaption className="absolute -bottom-10 left-0 right-0 text-center text-[11px] font-medium uppercase tracking-[0.24em] text-white/50 sm:-bottom-8">
               {(activeIndex ?? 0) + 1} / {photos.length}
             </figcaption>
           </motion.figure>
+
+          <div
+            className="absolute inset-x-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] flex items-center justify-center gap-3 sm:hidden"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!hasPrev}
+              className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-white/80 transition-colors enabled:hover:border-white/40 enabled:hover:text-white disabled:opacity-30"
+            >
+              Anterior
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!hasNext}
+              className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-white/80 transition-colors enabled:hover:border-white/40 enabled:hover:text-white disabled:opacity-30"
+            >
+              Siguiente
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

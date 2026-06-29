@@ -1,7 +1,6 @@
 "use client";
 
 import { DayRecommendations } from "@/components/guide/day-recommendations";
-import { RouteConnector } from "@/components/guide/route-connector";
 import { RouteStop } from "@/components/guide/route-stop";
 import { collectRecommendations, getRouteStops } from "@/lib/day-recommendations";
 import { buildScheduledRouteStops } from "@/lib/itinerary-schedule";
@@ -26,11 +25,8 @@ export function RouteView({ day }: RouteViewProps) {
       {stops.length > 0 && (
         <div className="mx-auto w-full max-w-[1600px] px-6 pt-2 md:px-12 md:pt-3 lg:px-16">
           <div className="border-b border-white/[0.08]">
-            {stops.map((stop, index) => (
-              <div key={stop.id}>
-                {index > 0 && <RouteConnector />}
-                <RouteStop stop={stop} />
-              </div>
+            {stops.map((stop) => (
+              <RouteStop key={stop.id} stop={stop} />
             ))}
           </div>
         </div>
