@@ -52,7 +52,7 @@ export function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity }}
-        className="relative z-10 flex h-full w-full min-w-0 flex-col items-start justify-end px-[max(1.5rem,env(safe-area-inset-left))] pb-[max(6rem,env(safe-area-inset-bottom))] pr-[max(1.5rem,env(safe-area-inset-right))] md:px-12 md:pb-28 lg:px-16 lg:pb-32"
+        className="relative z-10 flex h-full w-full min-w-0 flex-col items-start justify-end px-[max(1.5rem,env(safe-area-inset-left))] pb-[max(2.5rem,env(safe-area-inset-bottom))] pr-[max(1.5rem,env(safe-area-inset-right))] md:px-12 md:pb-28 lg:px-16 lg:pb-32"
       >
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
@@ -68,26 +68,26 @@ export function Hero() {
             {site.location}
           </p>
         </motion.div>
-      </motion.div>
 
-      <motion.button
-        type="button"
-        onClick={scrollNext}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-[max(1.5rem,env(safe-area-inset-left))] z-20 flex flex-col items-start gap-3 border-0 bg-transparent p-3 text-white/50 transition-colors hover:text-white/90 md:left-12 lg:left-16"
-        aria-label="Desplazar hacia abajo"
-      >
-        <motion.span
-          animate={prefersReducedMotion ? undefined : { y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="text-[10px] font-medium uppercase tracking-[0.3em]"
+        <motion.button
+          type="button"
+          onClick={scrollNext}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="mt-8 flex flex-col items-start gap-3 border-0 bg-transparent p-3 pl-0 text-white/50 transition-colors hover:text-white/90 md:absolute md:bottom-[max(2.5rem,env(safe-area-inset-bottom))] md:left-12 md:mt-0 lg:left-16"
+          aria-label="Desplazar hacia abajo"
         >
-          Desplazar
-        </motion.span>
-        <span className="block h-10 w-px bg-current" />
-      </motion.button>
+          <motion.span
+            animate={prefersReducedMotion ? undefined : { y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="text-[10px] font-medium uppercase tracking-[0.3em]"
+          >
+            Desplazar
+          </motion.span>
+          <span className="block h-10 w-px bg-current" />
+        </motion.button>
+      </motion.div>
     </section>
   );
 }
