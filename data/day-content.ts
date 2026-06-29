@@ -1,4 +1,11 @@
-import type { DayGuide, MapLocation, MealOption, VenueOption } from "@/types/guide";
+import type {
+  ActivityOption,
+  DayGuide,
+  GuideStop,
+  MapLocation,
+  MealOption,
+  VenueOption,
+} from "@/types/guide";
 import { activityMeta, clubMeta, mealMeta, venueMeta } from "@/data/place-meta";
 import { images } from "@/lib/images";
 
@@ -12,12 +19,42 @@ const meal = (id: string, name: string, query?: string): MealOption => ({
   ...mealMeta[id],
 });
 
+const lunchStop = (
+  id: string,
+  primaryId: string,
+  restaurantName: string,
+  mapsQuery: string,
+  drivingTimeFromPrevious: string | undefined,
+  alternatives: MealOption[],
+): GuideStop => ({
+  id,
+  title: "Comida",
+  description: restaurantName,
+  drivingTimeFromPrevious,
+  googleMapsUrl: maps(mapsQuery),
+  ...mealMeta[primaryId],
+  meals: alternatives,
+});
+
 const venue = (id: string, name: string, query?: string): VenueOption => ({
   id,
   name,
   googleMapsUrl: maps(query ?? name),
   ...venueMeta[id],
 });
+
+const activity = (id: string, name: string, query?: string): ActivityOption => ({
+  id,
+  name,
+  googleMapsUrl: maps(query ?? name),
+  ...activityMeta[id],
+});
+
+const breakfastOptions = () => [
+  meal("letras-lounge", "Letras Lounge", "Letras Lounge Albufeira"),
+  meal("doce-ke-doce", "Doce Ke Doce", "Doce Ke Doce Albufeira"),
+  meal("al-gharb", "Al-Gharb Coffee Roasters", "Al-Gharb Coffee Roasters Albufeira"),
+];
 
 const nightVenues = () => [
   venue("kiss", "Kiss Club", "Kiss Club Albufeira"),
@@ -70,11 +107,7 @@ export const day2: DayGuide = {
       id: "d2-breakfast",
       time: "09:30",
       title: "Desayuno",
-      meals: [
-        meal("letras-lounge", "Letras Lounge", "Letras Lounge Albufeira"),
-        meal("doce-ke-doce", "Doce Ke Doce", "Doce Ke Doce Albufeira"),
-        meal("al-gharb", "Al-Gharb Coffee Roasters", "Al-Gharb Coffee Roasters Albufeira"),
-      ],
+      meals: breakfastOptions(),
     },
     {
       id: "d2-marinha",
@@ -94,21 +127,23 @@ export const day2: DayGuide = {
       googleMapsUrl: maps("Praia do Carvalho"),
       coordinates: { lat: 37.0875, lng: -8.41 },
     },
-    {
-      id: "d2-lunch",
-      title: "Comida",
-      drivingTimeFromPrevious: "15 min",
-      meals: [
-        meal("boneca-bar", "Boneca Bar", "Boneca Bar Carvoeiro"),
+    lunchStop(
+      "d2-lunch",
+      "boneca-bar",
+      "Restaurante Boneca Bar",
+      "Boneca Bar Carvoeiro",
+      "15 min",
+      [
         meal("vimar", "Vimar Restaurante", "Vimar Restaurante Carvoeiro"),
         meal("jota-lita", "Jota Lita", "Jota Lita Carvoeiro"),
       ],
-    },
+    ),
     {
       id: "d2-algar-seco",
       title: "Algar Seco",
       description: "Mirador sobre el mar · Formaciones rocosas",
       image: images.carvoeiro,
+      drivingTimeFromPrevious: "5 min",
       googleMapsUrl: maps("Algar Seco Carvoeiro"),
       coordinates: { lat: 37.0974, lng: -8.4682 },
     },
@@ -152,6 +187,7 @@ export const day3: DayGuide = {
     {
       id: "d3-silves",
       title: "Silves",
+      description: "Visitar pueblo · Castillo y casco antiguo",
       image: images.silves,
       drivingTimeFromPrevious: "25 min",
       optionsLabel: "Ver:",
@@ -167,6 +203,8 @@ export const day3: DayGuide = {
     {
       id: "d3-ferragudo",
       title: "Ferragudo",
+      description: "Visitar pueblo pesquero · Pasear por el puerto y las calles",
+      durationMinutes: 120,
       image: images.ferragudo,
       drivingTimeFromPrevious: "30 min",
       optionsLabel: "Ver:",
@@ -179,24 +217,22 @@ export const day3: DayGuide = {
       googleMapsUrl: maps("Ferragudo Portugal"),
       coordinates: { lat: 37.1192, lng: -8.5217 },
     },
-    {
-      id: "d3-lunch",
-      title: "Comer",
-      meals: [
-        meal("sueste", "Sueste", "Sueste Ferragudo"),
+    lunchStop(
+      "d3-lunch",
+      "sueste",
+      "Restaurante Sueste · A pie",
+      "Sueste Ferragudo",
+      undefined,
+      [
         meal("fim-do-mundo", "Fim do Mundo", "Fim do Mundo Ferragudo"),
         meal("club-nau", "Club Nau", "Club Nau Ferragudo"),
         meal("borda-do-cais", "Borda do Cais", "Borda do Cais Ferragudo"),
       ],
-    },
-    {
-      id: "d3-paseo",
-      title: "Paseo por Ferragudo",
-    },
+    ),
     {
       id: "d3-portimao",
       title: "Portimão",
-      description: "Paseo marítimo.",
+      description: "Visitar pueblo · Paseo marítimo",
       image: images.portimao,
       drivingTimeFromPrevious: "10 min",
       googleMapsUrl: maps("Portimão paseo marítimo"),
@@ -205,6 +241,8 @@ export const day3: DayGuide = {
     {
       id: "d3-apartment",
       title: "Apartamento",
+      description: "Ducharse · Arreglarse",
+      durationMinutes: 60,
       drivingTimeFromPrevious: "35 min",
       googleMapsUrl: maps("Albufeira"),
       coordinates: { lat: 37.0889, lng: -8.2503 },
@@ -212,6 +250,7 @@ export const day3: DayGuide = {
     {
       id: "d3-afternoon",
       title: "Elegir plan de tarde",
+      description: "Ir a beach club + cena fuera · O beach club + cena apartamento",
       drivingTimeFromPrevious: "15 min",
       beachClubs: [
         {
@@ -244,8 +283,12 @@ export const day4: DayGuide = {
   theme: "Lancha + Playa + Fiesta",
   stops: [
     {
-      id: "d4-boat",
+      id: "d4-breakfast",
       time: "09:30",
+      title: "Desayuno",
+    },
+    {
+      id: "d4-boat",
       title: "Tour lancha rápida",
       description: "Cuevas + Delfines · ~3 h",
       durationMinutes: 180,
@@ -264,11 +307,17 @@ export const day4: DayGuide = {
       title: "Coasteering (opcional)",
       ...activityMeta["d4-coasteering"],
     },
-    {
-      id: "d4-lunch",
-      title: "Comer",
-      drivingTimeFromPrevious: "10 min",
-    },
+    lunchStop(
+      "d4-lunch",
+      "os-arcos",
+      "Restaurante Os Arcos",
+      "Os Arcos Albufeira",
+      "10 min",
+      [
+        meal("bom-apetite", "O Bom Apetite", "O Bom Apetite Albufeira"),
+        meal("tasquinha-rossio", "Tasquinha do Rossio", "Tasquinha do Rossio Albufeira"),
+      ],
+    ),
     {
       id: "d4-beach",
       title: "Elegir playa",
@@ -307,19 +356,95 @@ export const day4: DayGuide = {
 
 export const day5: DayGuide = {
   day: 5,
-  weekday: "Martes",
+  weekday: "Lunes",
   dateLabel: "28 Julio",
-  freeDayTitle: "DÍA LIBRE",
-  pendingMessage: "Todavía por decidir.",
-  ideas: [
-    "Piscina",
-    "Beach Club",
-    "Old Town",
-    "Compras",
-    "Playa",
-    "Restaurante",
+  theme: "Adrenalina + Relax + Última noche",
+  stops: [
+    {
+      id: "d5-breakfast",
+      time: "09:30",
+      title: "Desayuno",
+    },
+    {
+      id: "d5-buggy",
+      title: "Buggy off-road tour",
+      description: "Base del tour · Albufeira · ~2,5–3 h · 55–120 €",
+      durationMinutes: 165,
+      drivingTimeFromPrevious: "15 min",
+      googleMapsUrl: maps("Buggy tour Albufeira"),
+      recommendationGroup: "Empresas de Buggy",
+      recommendationIcon: "🏎️",
+      activities: [
+        activity("algarve-riders", "Algarve Riders", "Algarve Riders Albufeira"),
+        activity("xride-algarve", "XRide Algarve", "XRide Algarve Albufeira"),
+        activity("buggy-safari", "Buggy Safari Algarve", "Buggy Safari Algarve"),
+      ],
+    },
+    {
+      id: "d5-lunch",
+      title: "Comida",
+      description: "Comer tranquilamente en Albufeira · Restaurante libre",
+      drivingTimeFromPrevious: "20 min",
+      meals: [
+        meal("the-market", "The Market", "The Market Albufeira"),
+        meal("cabana-fresca", "Cabana Fresca", "Cabana Fresca Albufeira"),
+        meal("bravo-steak", "Bravo Steak House", "Bravo Steak House Albufeira"),
+      ],
+    },
+    {
+      id: "d5-pool",
+      title: "Piscina",
+      description: "Apartamento · Descansar · Piscina · Ducha",
+      durationMinutes: 150,
+      drivingTimeFromPrevious: "10 min",
+      googleMapsUrl: maps("Albufeira"),
+      coordinates: { lat: 37.0889, lng: -8.2503 },
+    },
+    {
+      id: "d5-georgina",
+      title: "Georgina",
+      description: "Georgina Cocktail Bar · Cóctel · Fotos",
+      drivingTimeFromPrevious: "12 min",
+      googleMapsUrl: maps("Georgina Cocktail Bar Albufeira"),
+      cocktails: [
+        venue("georgina", "Georgina", "Georgina Cocktail Bar Albufeira"),
+        venue("sal-rosa", "Sal Rosa", "Sal Rosa Albufeira"),
+        venue("the-garden", "The Garden", "The Garden Albufeira"),
+      ],
+    },
+    {
+      id: "d5-oldtown",
+      title: "Old Town Albufeira",
+      description: "Pasear sin prisa · Tiendas · Helado · Miradores",
+      walkingTimeFromPrevious: "2 min",
+      googleMapsUrl: maps("Albufeira Old Town"),
+      coordinates: { lat: 37.0881, lng: -8.2478 },
+    },
+    {
+      id: "d5-dinner",
+      title: "Cena especial",
+      description: "Elegir restaurante bonito para despedir el viaje",
+      walkingTimeFromPrevious: "5 min",
+      meals: [
+        meal("the-market", "The Market", "The Market Albufeira"),
+        meal("cabana-fresca", "Cabana Fresca", "Cabana Fresca Albufeira"),
+        meal("bravo-steak", "Bravo Steak House", "Bravo Steak House Albufeira"),
+      ],
+    },
+    {
+      id: "d5-last-drink",
+      title: "Última copa",
+      description: "Old Town · Última noche en el Algarve",
+      walkingTimeFromPrevious: "2 min",
+      recommendationGroup: "Si todavía quedan ganas",
+      recommendationIcon: "🌙",
+      venues: [
+        venue("matts-bar", "Matt's Bar", "Matt's Bar Albufeira"),
+        venue("liberto", "Liberto Club", "Liberto Club Albufeira"),
+        venue("kiss", "Kiss Club", "Kiss Club Albufeira"),
+      ],
+    },
   ],
-  stops: [],
 };
 
 export const day6: DayGuide = {
@@ -328,8 +453,12 @@ export const day6: DayGuide = {
   dateLabel: "29 Julio",
   stops: [
     {
-      id: "d6-pool",
+      id: "d6-breakfast",
       time: "09:30",
+      title: "Desayuno",
+    },
+    {
+      id: "d6-pool",
       title: "Piscina",
     },
     {
@@ -346,10 +475,17 @@ export const day6: DayGuide = {
       googleMapsUrl: maps("Faro Portugal"),
       coordinates: { lat: 37.0194, lng: -7.9322 },
     },
-    {
-      id: "d6-lunch",
-      title: "Comer",
-    },
+    lunchStop(
+      "d6-lunch",
+      "a-venda",
+      "Restaurante A Venda · Faro · A pie",
+      "A Venda Faro",
+      undefined,
+      [
+        meal("ria-formosa", "Restaurante Ria Formosa", "Restaurante Ria Formosa Faro"),
+        meal("ham-faro", "Ham", "Ham Faro"),
+      ],
+    ),
     {
       id: "d6-car",
       title: "Devolver coche",

@@ -33,6 +33,22 @@ export const venueMeta: Record<string, VenueMeta> = {
     averagePrice: "15–20 €",
     openingHours: "0:00–6:00",
   },
+  georgina: {
+    averagePrice: "10–15 €",
+    openingHours: "17:00–2:00",
+  },
+  "sal-rosa": {
+    averagePrice: "10–14 €",
+    openingHours: "18:00–2:00",
+  },
+  "the-garden": {
+    averagePrice: "10–15 €",
+    openingHours: "17:00–1:00",
+  },
+  "matts-bar": {
+    averagePrice: "8–12 €",
+    openingHours: "18:00–2:00",
+  },
 };
 
 export const mealMeta: Record<string, MealMeta> = {
@@ -134,6 +150,51 @@ export const mealMeta: Record<string, MealMeta> = {
     averagePrice: "Gratis",
     openingHours: "24h",
   },
+  "os-arcos": {
+    averagePrice: "18–28 €",
+    openingHours: "12:00–22:30",
+    kitchenHours: "12:00–15:00, 19:00–22:00",
+  },
+  "bom-apetite": {
+    averagePrice: "15–25 €",
+    openingHours: "12:00–22:00",
+    kitchenHours: "12:00–15:00, 19:00–22:00",
+  },
+  "tasquinha-rossio": {
+    averagePrice: "18–30 €",
+    openingHours: "12:00–22:30",
+    kitchenHours: "12:00–15:00, 19:00–22:30",
+  },
+  "a-venda": {
+    averagePrice: "18–30 €",
+    openingHours: "12:00–22:00",
+    kitchenHours: "12:00–15:00, 19:00–22:00",
+  },
+  "ria-formosa": {
+    averagePrice: "20–35 €",
+    openingHours: "12:00–22:30",
+    kitchenHours: "12:00–15:00, 19:00–22:00",
+  },
+  "ham-faro": {
+    averagePrice: "15–25 €",
+    openingHours: "12:00–23:00",
+    kitchenHours: "12:00–15:00, 19:00–22:30",
+  },
+  "the-market": {
+    averagePrice: "20–35 €",
+    openingHours: "12:00–23:00",
+    kitchenHours: "12:00–15:00, 19:00–22:30",
+  },
+  "cabana-fresca": {
+    averagePrice: "25–40 €",
+    openingHours: "12:00–23:00",
+    kitchenHours: "12:00–15:00, 19:00–22:30",
+  },
+  "bravo-steak": {
+    averagePrice: "30–50 €",
+    openingHours: "18:00–23:30",
+    kitchenHours: "19:00–22:30",
+  },
 };
 
 export const clubMeta: Record<string, ClubMeta> = {
@@ -161,6 +222,18 @@ export const activityMeta: Record<string, ActivityMeta> = {
   },
   "d4-coasteering": {
     price: "50–70 €",
+    openingHours: "9:00–17:00",
+  },
+  "algarve-riders": {
+    price: "55–120 €",
+    openingHours: "9:00–17:00",
+  },
+  "xride-algarve": {
+    price: "55–120 €",
+    openingHours: "9:00–17:00",
+  },
+  "buggy-safari": {
+    price: "55–120 €",
     openingHours: "9:00–17:00",
   },
 };

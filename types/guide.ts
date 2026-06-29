@@ -13,6 +13,7 @@ export interface GuideStop {
   icon?: string;
   image?: string;
   drivingTimeFromPrevious?: string;
+  walkingTimeFromPrevious?: string;
   showDriveFromPrevious?: boolean;
   /** Minutes spent at this stop (used for schedule calculation). */
   durationMinutes?: number;
@@ -23,7 +24,11 @@ export interface GuideStop {
   meals?: MealOption[];
   beachClubs?: BeachClubOption[];
   venues?: VenueOption[];
+  cocktails?: VenueOption[];
   activities?: ActivityOption[];
+  /** Custom label for recommendations section (e.g. "Empresas de Buggy"). */
+  recommendationGroup?: string;
+  recommendationIcon?: string;
   alternatives?: { name: string; googleMapsUrl?: string }[];
 }
 

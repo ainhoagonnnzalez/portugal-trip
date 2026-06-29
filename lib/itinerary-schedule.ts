@@ -8,10 +8,14 @@ const DEFAULT_DAY_START = "09:30";
 const MIN_LUNCH_MINUTES = 14 * 60;
 const MIN_DINNER_MINUTES = 21 * 60;
 
-function getMinimumStartMinutes(stop: GuideStop): number | null {
+function isLunchStop(stop: GuideStop): boolean {
   const title = stop.title.toLowerCase();
-  if (title === "comer" || title === "comida") return MIN_LUNCH_MINUTES;
-  if (title.includes("cena")) return MIN_DINNER_MINUTES;
+  return title === "comer" || title === "comida";
+}
+
+function getMinimumStartMinutes(stop: GuideStop): number | null {
+  if (isLunchStop(stop)) return MIN_LUNCH_MINUTES;
+  if (stop.title.toLowerCase().includes("cena")) return MIN_DINNER_MINUTES;
   return null;
 }
 
@@ -60,7 +64,7 @@ export function inferStopDurationMinutes(stop: GuideStop): number {
   const description = (stop.description ?? "").toLowerCase();
 
   if (title === "desayuno") return 45;
-  if (title === "comer" || title === "comida") return 75;
+  if (isLunchStop(stop)) return 75;
   if (title.includes("cena")) return 90;
   if (title === "supermercado") return 30;
   if (title === "piscina") return 60;
@@ -74,11 +78,14 @@ export function inferStopDurationMinutes(stop: GuideStop): number {
   if (title.includes("carvalho")) return 45;
   if (title.includes("elegir playa")) return 120;
   if (title === "silves") return 135;
-  if (title === "ferragudo") return 30;
+  if (title === "ferragudo") return 120;
   if (title.includes("old town")) return 120;
   if (title.includes("aeropuerto")) return 45;
   if (title.includes("devolver coche")) return 20;
   if (title.includes("tour") || title.includes("lancha")) return 180;
+  if (title.includes("buggy")) return 165;
+  if (title.includes("última copa")) return 90;
+  if (title === "piscina" && description.includes("ducha")) return 150;
   if (title.includes("plan de tarde") || title.includes("elegir plan")) {
     return 150;
   }
@@ -86,6 +93,9 @@ export function inferStopDurationMinutes(stop: GuideStop): number {
   if (title === "faro") return 60;
   if (title === "apartamento") {
     if (description.includes("dejar maletas")) return 30;
+    if (description.includes("ducharse") || description.includes("arreglarse")) {
+      return 60;
+    }
     return 75;
   }
 
@@ -102,6 +112,7 @@ export function buildScheduledRouteStops(
   return stops.map((stop, index) => {
     if (index > 0) {
       cursor += parseDriveMinutes(stop.drivingTimeFromPrevious);
+      cursor += parseDriveMinutes(stop.walkingTimeFromPrevious);
     }
 
     const minimumStart = getMinimumStartMinutes(stop);

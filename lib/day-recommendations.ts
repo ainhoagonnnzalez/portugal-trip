@@ -22,27 +22,24 @@ export interface RecommendationGroup {
   items: RecommendationItem[];
 }
 
-type RecommendationCategory =
-  | "Restaurantes"
-  | "Actividades"
-  | "Beach Clubs"
-  | "Noche";
-
-const CATEGORY_META: Record<
-  RecommendationCategory,
-  { id: string; icon: string }
-> = {
-  Restaurantes: { id: "restaurants", icon: "🍴" },
-  Actividades: { id: "activities", icon: "🌊" },
-  "Beach Clubs": { id: "beach-clubs", icon: "🍸" },
-  Noche: { id: "night", icon: "🌙" },
+const DEFAULT_ICON: Record<string, string> = {
+  Restaurantes: "🍴",
+  Actividades: "🌊",
+  "Beach Clubs": "🍸",
+  Noche: "🌙",
+  Cócteles: "🍸",
+  "Empresas de Buggy": "🏎️",
+  "Si todavía quedan ganas": "🌙",
 };
 
-const CATEGORY_ORDER: RecommendationCategory[] = [
+const CATEGORY_ORDER = [
   "Restaurantes",
+  "Empresas de Buggy",
   "Actividades",
   "Beach Clubs",
+  "Cócteles",
   "Noche",
+  "Si todavía quedan ganas",
 ];
 
 function uniqueItems(items: RecommendationItem[]): RecommendationItem[] {
@@ -126,14 +123,19 @@ function fromActivities(activities: ActivityOption[]): RecommendationItem[] {
   }));
 }
 
-function mealCategory(stop: GuideStop): RecommendationCategory {
+function mealCategory(stop: GuideStop): string {
   const title = stop.title.toLowerCase();
   if (title === "desayuno") return "Restaurantes";
   if (stop.optionsLabel === "Ver:") return "Actividades";
   if (title === "comer" || title === "comida") return "Restaurantes";
+  if (title.includes("cena")) return "Restaurantes";
   if (title.includes("playa")) return "Actividades";
   if (title.includes("tarde")) return "Beach Clubs";
   return "Restaurantes";
+}
+
+function groupIcon(label: string, override?: string): string {
+  return override ?? DEFAULT_ICON[label] ?? "📍";
 }
 
 export function getRouteStops(day: DayGuide): GuideStop[] {
@@ -141,34 +143,53 @@ export function getRouteStops(day: DayGuide): GuideStop[] {
 }
 
 export function collectRecommendations(day: DayGuide): RecommendationGroup[] {
-  const buckets = new Map<RecommendationCategory, RecommendationItem[]>();
+  const buckets = new Map<string, RecommendationGroup>();
 
-  const add = (category: RecommendationCategory, items: RecommendationItem[]) => {
+  const add = (label: string, icon: string, items: RecommendationItem[]) => {
     if (items.length === 0) return;
-    const existing = buckets.get(category) ?? [];
-    buckets.set(category, uniqueItems([...existing, ...items]));
+    const existing = buckets.get(label);
+    if (existing) {
+      existing.items = uniqueItems([...existing.items, ...items]);
+    } else {
+      buckets.set(label, {
+        id: label.toLowerCase().replace(/\s+/g, "-"),
+        label,
+        icon,
+        items: uniqueItems(items),
+      });
+    }
   };
 
   for (const stop of day.stops) {
     if (stop.meals?.length) {
-      const category = mealCategory(stop);
-      add(
-        category,
-        fromMeals(stop.meals, category === "Restaurantes"),
-      );
+      const label = mealCategory(stop);
+      add(label, groupIcon(label), fromMeals(stop.meals, label === "Restaurantes"));
     }
     if (stop.beachClubs?.length) {
-      add("Beach Clubs", fromClubs(stop.beachClubs));
+      add("Beach Clubs", groupIcon("Beach Clubs"), fromClubs(stop.beachClubs));
     }
     if (stop.activities?.length) {
-      add("Actividades", fromActivities(stop.activities));
+      const label = stop.recommendationGroup ?? "Actividades";
+      add(
+        label,
+        groupIcon(label, stop.recommendationIcon),
+        fromActivities(stop.activities),
+      );
+    }
+    if (stop.cocktails?.length) {
+      add("Cócteles", groupIcon("Cócteles"), fromVenues(stop.cocktails));
     }
     if (stop.venues?.length) {
-      add("Noche", fromVenues(stop.venues));
+      const label = stop.recommendationGroup ?? "Noche";
+      add(
+        label,
+        groupIcon(label, stop.recommendationIcon),
+        fromVenues(stop.venues),
+      );
     }
 
     if (stop.title.includes("(opcional)")) {
-      add("Actividades", [
+      add("Actividades", groupIcon("Actividades"), [
         {
           id: stop.id,
           name: stop.title.replace(/\s*\(opcional\)/i, ""),
@@ -183,12 +204,10 @@ export function collectRecommendations(day: DayGuide): RecommendationGroup[] {
     }
   }
 
-  return CATEGORY_ORDER.filter((label) => buckets.has(label)).map((label) => ({
-    id: CATEGORY_META[label].id,
-    label,
-    icon: CATEGORY_META[label].icon,
-    items: buckets.get(label)!,
-  }));
+  const ordered = CATEGORY_ORDER.filter((label) => buckets.has(label));
+  const extra = [...buckets.keys()].filter((label) => !CATEGORY_ORDER.includes(label));
+
+  return [...ordered, ...extra].map((label) => buckets.get(label)!);
 }
 
 export function getBriefDescription(stop: GuideStop): string | undefined {

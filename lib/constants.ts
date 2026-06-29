@@ -10,7 +10,7 @@ export const site = {
 
 export const nav = [
   { label: "Inicio", href: "/" },
-  { label: "Plan del viaje", href: "/plan" },
+  { label: "Plan del viaje", shortLabel: "Plan", href: "/plan" },
   { label: "Mapa", href: "/mapa" },
 ] as const;
 

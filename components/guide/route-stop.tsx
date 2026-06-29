@@ -23,7 +23,7 @@ export function RouteStop({ stop }: RouteStopProps) {
       <div className="route-col-main min-w-0">
         <h2 className="text-itinerary-title">{stop.title}</h2>
         {description && (
-          <p className="text-itinerary-desc mt-1.5 truncate md:mt-2">
+          <p className="text-itinerary-desc mt-1.5 md:mt-2">
             {description}
           </p>
         )}
@@ -36,6 +36,12 @@ export function RouteStop({ stop }: RouteStopProps) {
             {stop.drivingTimeFromPrevious}
           </p>
         )}
+        {stop.walkingTimeFromPrevious && (
+          <p className="text-itinerary-drive">
+            <span aria-hidden>🚶 </span>
+            {stop.walkingTimeFromPrevious}
+          </p>
+        )}
         {stop.googleMapsUrl && (
           <Link
             href={stop.googleMapsUrl}
@@ -43,7 +49,7 @@ export function RouteStop({ stop }: RouteStopProps) {
             rel="noopener noreferrer"
             className="text-itinerary-link"
           >
-            Google Maps →
+            Google Maps
           </Link>
         )}
       </div>
