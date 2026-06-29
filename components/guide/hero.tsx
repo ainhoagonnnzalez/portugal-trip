@@ -43,7 +43,7 @@ export function Hero() {
               sizes="100vw"
               onError={() => setImageFailed(true)}
             />
-            <div className="absolute inset-0 bg-navy/55" aria-hidden />
+            <div className="absolute inset-0 bg-navy/60" aria-hidden />
           </>
         ) : (
           <div className="absolute inset-0 bg-navy" aria-hidden />
@@ -52,23 +52,30 @@ export function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity }}
-        className="relative z-10 flex h-full w-full min-w-0 flex-col items-start justify-end px-[max(1.5rem,env(safe-area-inset-left))] pb-[max(2.5rem,env(safe-area-inset-bottom))] pr-[max(1.5rem,env(safe-area-inset-right))] md:px-12 md:pb-28 lg:px-16 lg:pb-32"
+        className="relative z-10 flex h-full w-full min-w-0 flex-col items-center justify-center px-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pb-[max(5rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))]"
       >
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full min-w-0 max-w-4xl text-left"
+          className="flex w-full min-w-0 max-w-[1600px] flex-col items-center text-center"
         >
-          <h1 className="text-display-hero text-white">{site.title}</h1>
-          <p className="text-display-date mt-5 text-white/85 sm:mt-6 md:mt-8">
+          <h1 className="text-hero-stack">
+            <span className="text-hero-stack-line text-white">Viaje</span>
+            <span className="text-hero-stack-line text-hero-stack-mid text-accent">
+              a
+            </span>
+            <span className="text-hero-stack-line text-white">Portugal</span>
+          </h1>
+
+          <p className="text-hero-meta mt-8 text-white/80 sm:mt-10 md:mt-12">
             {site.dates}
           </p>
-          <p className="text-display-place mt-3 text-white sm:mt-4 md:mt-6">
+          <p className="text-display-place mt-3 text-white sm:mt-4">
             {site.location}
           </p>
           <p
-            className="mt-3 text-xl tracking-[0.35em] sm:mt-4 sm:text-2xl md:mt-5 md:text-[1.75rem]"
+            className="mt-3 text-lg tracking-[0.35em] sm:mt-4 sm:text-xl"
             aria-hidden
           >
             🌸🏝️
@@ -81,7 +88,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
-          className="mt-8 flex flex-col items-start gap-3 border-0 bg-transparent p-3 pl-0 text-white/50 transition-colors hover:text-white/90 md:absolute md:bottom-[max(2.5rem,env(safe-area-inset-bottom))] md:left-12 md:mt-0 lg:left-16"
+          className="absolute bottom-[max(2rem,env(safe-area-inset-bottom))] left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 border-0 bg-transparent p-3 text-white/50 transition-colors hover:text-white/90"
           aria-label="Desplazar hacia abajo"
         >
           <motion.span

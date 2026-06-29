@@ -3,7 +3,7 @@
 :root {
   --navy: #082b5a;
   --navy-light: #0f4c81;
-  --accent: #4fa3ff;
+  --accent: #85c4ff;
   --background: #f7f9fc;
   --card: #ffffff;
   --text: #111827;
@@ -52,20 +52,22 @@
   }
 
   ::selection {
-    background: rgba(79, 163, 255, 0.22);
+    background: rgba(133, 196, 255, 0.22);
   }
 }
 
 @layer components {
   .font-display {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
   }
 
   /* Archivo Expanded — hero, ALBUFEIRA, DÍA X, activity titles */
   .text-display-hero {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(3rem, calc((100vw - 3rem) / 4.8), 12rem);
     font-weight: 800;
     line-height: 0.88;
@@ -74,9 +76,45 @@
     max-width: 100%;
   }
 
-  .text-display-place {
-    font-family: var(--font-display), system-ui, sans-serif;
+  .text-hero-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    line-height: 0.82;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .text-hero-stack-line {
+    display: block;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
+    font-size: clamp(1.875rem, calc((100vw - 2.5rem) / 6.2), 9.5rem);
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .text-hero-stack-mid {
+    font-size: clamp(1.625rem, calc((100vw - 2.5rem) / 7.5), 8rem);
+    line-height: 0.75;
+    padding-block: 0.04em;
+  }
+
+  .text-hero-meta {
+    font-family: var(--font-satoshi), system-ui, sans-serif;
+    font-size: clamp(0.75rem, 2.2vw + 0.2rem, 1rem);
+    font-weight: 500;
+    letter-spacing: clamp(0.16em, 2.5vw, 0.32em);
+    text-transform: uppercase;
+  }
+
+  .text-display-place {
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(1.5rem, 5vw + 0.25rem, 3.25rem);
     font-weight: 800;
     letter-spacing: 0.06em;
@@ -85,8 +123,9 @@
   }
 
   .text-day-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(2rem, 7vw, 4.5rem);
     font-weight: 800;
     line-height: 0.95;
@@ -95,8 +134,9 @@
   }
 
   .text-route-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(1.5rem, 4vw, 2.75rem);
     font-weight: 800;
     line-height: 1;
@@ -106,8 +146,9 @@
   }
 
   .text-itinerary-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(1.375rem, 3vw, 2.25rem);
     font-weight: 800;
     line-height: 1;
@@ -117,8 +158,9 @@
   }
 
   .text-editorial-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(1.375rem, 3.5vw, 2.5rem);
     font-weight: 800;
     line-height: 1.02;
@@ -188,8 +230,9 @@
   }
 
   .text-timeline-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), "Archivo Expanded", system-ui, sans-serif;
     font-variation-settings: "wdth" 125, "wght" 800;
+    font-stretch: expanded;
     font-size: clamp(1.0625rem, 2.2vw, 1.375rem);
     font-weight: 800;
     line-height: 1.05;

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo } from "next/font/google";
 import localFont from "next/font/local";
 import { AppShell } from "@/components/guide/app-shell";
 import { site } from "@/lib/constants";
@@ -27,12 +26,12 @@ const satoshi = localFont({
   display: "swap",
 });
 
-const archivoDisplay = Archivo({
+const archivoExpanded = localFont({
+  src: "./fonts/Archivo-Expanded-Variable.woff2",
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: "variable",
-  axes: ["wdth"],
+  weight: "100 900",
   display: "swap",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
 });
 
 export const metadata: Metadata = {
@@ -52,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${satoshi.variable} ${archivoDisplay.variable} h-full scroll-smooth antialiased`}
+      className={`${satoshi.variable} ${archivoExpanded.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-text">
         <AppShell>{children}</AppShell>
