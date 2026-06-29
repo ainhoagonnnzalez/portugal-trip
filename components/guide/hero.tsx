@@ -52,30 +52,35 @@ export function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity }}
-        className="relative z-10 flex h-full w-full min-w-0 flex-col items-center justify-center px-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pb-[max(5rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))]"
+        className="relative z-10 h-full w-full min-w-0 px-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))]"
       >
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex w-full min-w-0 max-w-[1600px] flex-col items-center text-center"
-        >
-          <h1 className="text-hero-stack">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center pb-[18vh] pt-[var(--spacing-nav)] sm:pb-[16vh]">
+          <motion.h1
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-hero-stack w-full"
+          >
             <span className="text-hero-stack-line text-white">Viaje</span>
             <span className="text-hero-stack-line text-hero-stack-mid text-accent">
               a
             </span>
             <span className="text-hero-stack-line text-white">Portugal</span>
-          </h1>
+          </motion.h1>
+        </div>
 
-          <p className="text-hero-meta mt-8 text-white/80 sm:mt-10 md:mt-12">
-            {site.dates}
-          </p>
-          <p className="text-display-place mt-3 text-white sm:mt-4">
+        <motion.div
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-x-[max(1.5rem,env(safe-area-inset-left))] bottom-[max(5.5rem,env(safe-area-inset-bottom))] flex flex-col items-center text-center sm:bottom-[max(6rem,env(safe-area-inset-bottom))]"
+        >
+          <p className="text-hero-meta text-white/80">{site.dates}</p>
+          <p className="text-hero-location mt-3 text-white sm:mt-4">
             {site.location}
           </p>
           <p
-            className="mt-3 text-lg tracking-[0.35em] sm:mt-4 sm:text-xl"
+            className="mt-2.5 text-base tracking-[0.35em] sm:mt-3 sm:text-lg"
             aria-hidden
           >
             🌸🏝️
@@ -88,7 +93,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
-          className="absolute bottom-[max(2rem,env(safe-area-inset-bottom))] left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 border-0 bg-transparent p-3 text-white/50 transition-colors hover:text-white/90"
+          className="absolute bottom-[max(1.75rem,env(safe-area-inset-bottom))] left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 border-0 bg-transparent p-3 text-white/50 transition-colors hover:text-white/90"
           aria-label="Desplazar hacia abajo"
         >
           <motion.span

@@ -65,6 +65,8 @@ export const day1: DayGuide = {
   day: 1,
   weekday: "Viernes",
   dateLabel: "24 Julio",
+  theme: "Llegada + Old Town",
+  emoji: "🏝️",
   stops: [
     {
       id: "d1-faro",
@@ -102,6 +104,7 @@ export const day2: DayGuide = {
   weekday: "Sábado",
   dateLabel: "25 Julio",
   theme: "Playa + Carvoeiro + Fiesta",
+  emoji: "🪸",
   stops: [
     {
       id: "d2-breakfast",
@@ -178,6 +181,8 @@ export const day3: DayGuide = {
   day: 3,
   weekday: "Domingo",
   dateLabel: "26 Julio",
+  theme: "Silves + Ferragudo + Beach Club",
+  emoji: "🌊",
   stops: [
     {
       id: "d3-breakfast",
@@ -281,6 +286,7 @@ export const day4: DayGuide = {
   weekday: "Lunes",
   dateLabel: "27 Julio",
   theme: "Lancha + Playa + Fiesta",
+  emoji: "🌺",
   stops: [
     {
       id: "d4-breakfast",
@@ -359,6 +365,7 @@ export const day5: DayGuide = {
   weekday: "Lunes",
   dateLabel: "28 Julio",
   theme: "Adrenalina + Relax + Última noche",
+  emoji: "🌸",
   stops: [
     {
       id: "d5-breakfast",
@@ -451,6 +458,8 @@ export const day6: DayGuide = {
   day: 6,
   weekday: "Miércoles",
   dateLabel: "29 Julio",
+  theme: "Checkout + Faro + Vuelta",
+  emoji: "☀️",
   stops: [
     {
       id: "d6-breakfast",

@@ -19,7 +19,14 @@ export function DayHero({ day }: DayHeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="text-day-title text-white">DÍA {day.day}</h1>
+          <h1 className="text-day-title flex items-center gap-3 text-white sm:gap-4">
+            {day.emoji && (
+              <span className="text-[0.72em] leading-none" aria-hidden>
+                {day.emoji}
+              </span>
+            )}
+            <span>DÍA {day.day}</span>
+          </h1>
           {(day.weekday || day.dateLabel) && (
             <p className="text-display-date mt-3 text-white/85 md:mt-4">
               {day.weekday?.toUpperCase()}

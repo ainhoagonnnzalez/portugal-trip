@@ -107,6 +107,8 @@ export interface DayGuide {
   pendingNote?: string;
   freeDayTitle?: string;
   ideas?: string[];
+  /** Shown in day hero only (not in day tabs). */
+  emoji?: string;
   stops: GuideStop[];
 }
 
